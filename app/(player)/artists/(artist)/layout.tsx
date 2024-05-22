@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, PropsWithChildren, useState } from "react";
+import React from "react";
 import ArtistNavigator from "@/app/(player)/artists/(artist)/[slugOrId]/artistNavigator";
 import { useAppStore } from "@/store";
 import { AnimatePresence, motion } from "framer-motion";
