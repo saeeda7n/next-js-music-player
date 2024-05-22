@@ -1,5 +1,5 @@
 "use server";
-import { db } from "@/lib/drizzle";
+import { db, queryClient } from "@/lib/drizzle";
 import { asc, desc, eq, gt, lt, or, sql } from "drizzle-orm";
 import { artistTable, mediaTable } from "@/lib/drizzle/schema";
 import { Sleep } from "@/lib/utils";
@@ -20,6 +20,8 @@ export async function getArtists() {
 }
 
 export async function getArtist(slugOrId: string) {
+  await Sleep();
+
   const where = Number.isNaN(+slugOrId)
     ? eq(artistTable.slug, slugOrId)
     : eq(artistTable.id, +slugOrId);
@@ -42,7 +44,6 @@ export async function getArtist(slugOrId: string) {
     getNextArtist(artist.id),
     getPreviousArtist(artist.id),
   ]);
-
   return { ...artist, next, previous };
 }
 

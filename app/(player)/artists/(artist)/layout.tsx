@@ -70,9 +70,9 @@ const Layout = ({ children }: any) => {
             </div>
           </div>
         </div>
+        {children}
       </section>
       <ArtistNavigator closed={!artist?.next} artist={artist?.next} />
-      {children}
     </>
   );
 };
