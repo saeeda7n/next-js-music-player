@@ -4,8 +4,8 @@ import ArtistNavigator from "@/app/(player)/artists/(artist)/[slugOrId]/artistNa
 import { useAppStore } from "@/store";
 import { AnimatePresence, motion } from "framer-motion";
 import { ImageNoise, TextNoise } from "@/components/filters/noise";
-import Image from "next/image";
 import { RiVerifiedBadgeFill } from "@remixicon/react";
+import AppImage from "@/components/appImage";
 
 const Layout = ({ children }: any) => {
   const artist = useAppStore((state) => state.currentArtist);
@@ -25,12 +25,10 @@ const Layout = ({ children }: any) => {
             transition={{ ease: "backInOut" }}
             className="absolute inset-0 overflow-hidden"
           >
-            <Image
+            <AppImage
               loading="eager"
               src={artist.backgroundImage!.url}
               alt={artist.name}
-              width={1920}
-              height={1080}
               className="h-full w-full origin-center object-cover object-center blur"
             />
           </motion.div>

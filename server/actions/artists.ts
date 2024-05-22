@@ -20,8 +20,6 @@ export async function getArtists() {
 }
 
 export async function getArtist(slugOrId: string) {
-  await Sleep();
-
   const where = Number.isNaN(+slugOrId)
     ? eq(artistTable.slug, slugOrId)
     : eq(artistTable.id, +slugOrId);

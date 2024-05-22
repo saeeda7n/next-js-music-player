@@ -6,6 +6,7 @@ import Image from "next/image";
 import { getArtist } from "@/server/actions/artists";
 import { cn } from "@/lib/utils";
 import { ImageNoise } from "@/components/filters/noise";
+import AppImage from "@/components/appImage";
 
 type Props = {
   artist?: NonNullable<Awaited<ReturnType<typeof getArtist>>>["next"];
@@ -17,7 +18,7 @@ const ArtistNavigator = ({ artist, closed }: Props) => {
     <section
       className={cn(
         "group relative flex max-w-44 flex-1 overflow-hidden bg-black bg-cover bg-center [transition:max-width_0.3s]",
-        { "pointer-events-none max-w-12 bg-zinc-900": closed },
+        { "pointer-events-none max-w-12": closed },
       )}
     >
       <ImageNoise />
@@ -27,15 +28,13 @@ const ArtistNavigator = ({ artist, closed }: Props) => {
           initial={{ opacity: 0.3, scale: 1 }}
           animate={{ opacity: 1, scale: 1.05 }}
           exit={{ opacity: 0.3, scale: 1 }}
-          className="absolute inset-0"
+          className="cover-mask absolute inset-0"
         >
           {artist?.backgroundImage && (
-            <Image
+            <AppImage
               className="h-full w-full object-cover object-center [filter:url(#coverFilter)]"
-              width={1980}
-              height={1080}
               src={artist?.backgroundImage?.url}
-              alt={"sad"}
+              alt={artist?.name}
             />
           )}
         </motion.div>
