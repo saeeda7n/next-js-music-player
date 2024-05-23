@@ -17,7 +17,7 @@ const ArtistNavigator = ({ artist, closed }: Props) => {
   return (
     <section
       className={cn(
-        "group relative flex max-w-44 flex-1 overflow-hidden bg-black bg-cover bg-center [transition:max-width_0.3s]",
+        "group sticky top-0 flex max-h-screen max-w-44 flex-1 overflow-hidden bg-black bg-cover bg-center [transition:max-width_0.3s]",
         { "pointer-events-none max-w-12": closed },
       )}
     >
@@ -40,8 +40,8 @@ const ArtistNavigator = ({ artist, closed }: Props) => {
         </motion.div>
       </AnimatePresence>
       <Link
-        href={`/artists/${artist?.slug}`}
-        className="relative flex flex-1 items-center justify-center bg-black/95 transition-colors duration-300 group-hover:bg-black/10"
+        href={`/artists/tracks?id=${artist?.slug}`}
+        className="relative flex flex-1 items-center justify-center bg-black/95 py-10 transition-colors duration-300 group-hover:bg-black/10"
       >
         <AnimatePresence mode="popLayout">
           <motion.h2

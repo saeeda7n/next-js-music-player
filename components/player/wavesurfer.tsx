@@ -8,13 +8,13 @@ const Wavesurfer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const { currentTime, wavesurfer, isReady } = useWavesurfer({
     container: container,
-    url: "https://musicc.storage.iran.liara.space/Dua-Lipa-Falling-Forever-320.mp3",
-    waveColor: "gray",
+    url: "https://musicc.storage.iran.liara.space/bb5f1522-7c72-4cf4-81d1-b30cb179b157.mp3",
+    waveColor: "#181818",
     progressColor: "white",
-    minPxPerSec: 15,
     hideScrollbar: true,
     height: 48,
-    barGap: 4,
+    barGap: 6,
+    backend: "WebAudio",
     barWidth: 2,
     barRadius: 20,
     barHeight: 24,
@@ -29,13 +29,13 @@ const Wavesurfer = () => {
   const formattedDuration = formatSecondToMinutes(wavesurfer?.getDuration());
 
   return (
-    <div className="flex items-end justify-between gap-6 text-sm font-medium">
+    <div className="flex items-end justify-between gap-2 text-sm font-medium">
       <span className="-mb-1 w-10 text-left opacity-90">
         {formattedCurrentTime}
       </span>
       <div className="relative h-12 flex-1">
         <div className="absolute inset-0">
-          <div ref={container} className="w-full" />
+          <div ref={container} className="player w-full" />
         </div>
       </div>
       <span className="-mb-1 w-10 text-right opacity-50">

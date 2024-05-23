@@ -25,12 +25,10 @@ export default function RootLayout({ children }: Props) {
           "min-h-screen",
           "flex",
           "bg-zinc-950",
+          "overflow-x-hidden",
         )}
       >
-        <ClientContext>
-          {children}
-          <ArtistLists />
-        </ClientContext>
+        <ClientContext>{children}</ClientContext>
       </body>
     </html>
   );

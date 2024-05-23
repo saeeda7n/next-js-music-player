@@ -9,7 +9,7 @@ const Page = async () => {
       <ul className="flex">
         {artists.map((artist) => (
           <li>
-            <Link key={artist.id} href={`/artists/${artist.slug}`}>
+            <Link key={artist.id} href={`/artists/tracks?id=${artist.slug}`}>
               {artist.name}
             </Link>
           </li>

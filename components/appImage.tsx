@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+"use client";
+import React, { useState } from "react";
 import Image, { ImageProps } from "next/image";
 import { cn } from "@/lib/utils";
 import { RiLoader5Fill } from "@remixicon/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const AppImage = ({
   onError,
@@ -17,7 +19,9 @@ const AppImage = ({
         onError={_onError}
         onLoadingComplete={_onLoadingComplete}
         fill
-        className={cn(className)}
+        className={cn(className, "opacity-0 transition-opacity duration-300", {
+          "opacity-100": loaded,
+        })}
         {...props}
       />
       {!loaded && (
