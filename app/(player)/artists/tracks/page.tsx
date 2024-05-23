@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { getArtist } from "@/server/actions/artists";
 import { ImageNoise, TextNoise } from "@/components/filters/noise";
-import ArtistNavigator from "@/app/(player)/artists/tracks/artistNavigator";
+import SideNavigator from "@/components/sideNavigator";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/app/(player)/artists/tracks/pageHeader";
 import { Player } from "@/components/player/player";
@@ -9,14 +9,20 @@ import PageBackground from "@/app/(player)/artists/tracks/pageBackground";
 
 const Page = async ({ searchParams: { id } }: any) => {
   const artist = await getArtist(id);
-
   if (!artist) return notFound();
+
   return (
     <>
       <ImageNoise />
       <TextNoise />
-      <ArtistNavigator closed={!artist?.previous} artist={artist?.previous} />
-      <div className="relative flex-1">
+      <SideNavigator
+        id={artist.previous?.id}
+        backgroundImage={artist.previous?.backgroundImage?.url}
+        label={artist.previous?.name}
+        url={`/artists/tracks?id=${artist.previous?.slug}`}
+        closed={!artist.previous}
+      />
+      <section className="relative flex-1">
         <div className="relative flex min-h-screen flex-1 bg-black/40">
           <div className="absolute inset-0">
             <PageBackground
@@ -31,8 +37,14 @@ const Page = async ({ searchParams: { id } }: any) => {
             <div className="px-16"></div>
           </div>
         </div>
-      </div>
-      <ArtistNavigator closed={!artist?.next} artist={artist?.next} />
+      </section>
+      <SideNavigator
+        id={artist.next?.id}
+        backgroundImage={artist.next?.backgroundImage?.url}
+        label={artist.next?.name}
+        url={`/artists/tracks?id=${artist.next?.slug}`}
+        closed={!artist.next}
+      />
     </>
   );
 };
