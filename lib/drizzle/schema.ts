@@ -7,6 +7,7 @@ import {
   serial,
   pgEnum,
   uuid,
+  primaryKey,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -40,25 +41,6 @@ import { relations } from "drizzle-orm";
 //   userAgent: varchar("user_agent"),
 // });
 //
-// export const postTable = pgTable("posts", {
-//   id: uuid("id").primaryKey().defaultRandom(),
-//   authorId: varchar("author_id", { length: 36 }),
-//   createdAt: timestamp("created_at", {
-//     mode: "date",
-//     withTimezone: true,
-//   }).defaultNow(),
-//   updatedAt: timestamp("updated_at", {
-//     mode: "date",
-//     withTimezone: true,
-//   }).defaultNow(),
-// });
-//
-// export const categoryTable = pgTable("categories", {
-//   id: serial("id").primaryKey(),
-//   name: varchar("name", { length: 32 }).notNull(),
-//   icon: varchar("icon_url"),
-//   slug: varchar("slug").notNull().unique(),
-// });
 
 export const trackTable = pgTable("tracks", {
   id: serial("id").primaryKey(),
@@ -73,6 +55,7 @@ export const trackTable = pgTable("tracks", {
   artistId: integer("artist_id")
     .notNull()
     .references(() => artistTable.id),
+  albumId: integer("album_id").references(() => albumTable.id),
   createdAt: timestamp("created_at", {
     mode: "date",
     withTimezone: true,
@@ -127,6 +110,7 @@ export const mediaTable = pgTable("medias", {
   id: serial("id").primaryKey(),
   storeKey: varchar("storeKey").notNull(),
   name: varchar("name"),
+  mime: varchar("mime", { length: 16 }),
   placeholder: varchar("placeholder"),
   createdAt: timestamp("created_at", {
     mode: "date",
@@ -138,7 +122,22 @@ export const mediaTable = pgTable("medias", {
   }).defaultNow(),
 });
 
-export const trackRelations = relations(trackTable, ({ one }) => ({
+export const artistToTrackTable = pgTable(
+  "artist_track",
+  {
+    trackId: integer("track_id")
+      .notNull()
+      .references(() => trackTable.id),
+    artistId: integer("artist_id")
+      .notNull()
+      .references(() => artistTable.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.trackId, t.artistId] }),
+  }),
+);
+
+export const trackRelations = relations(trackTable, ({ one, many }) => ({
   artist: one(artistTable, {
     references: [artistTable.id],
     fields: [trackTable.artistId],
@@ -151,11 +150,31 @@ export const trackRelations = relations(trackTable, ({ one }) => ({
     references: [mediaTable.id],
     fields: [trackTable.playableId],
   }),
+  album: one(albumTable, {
+    references: [albumTable.id],
+    fields: [trackTable.albumId],
+  }),
+  artists: many(artistToTrackTable),
 }));
 // export const artistTracks =
-export const artistBackground = relations(artistTable, ({ one }) => ({
+export const artistRelations = relations(artistTable, ({ one, many }) => ({
   backgroundImage: one(mediaTable, {
     references: [mediaTable.id],
     fields: [artistTable.backgroundId],
   }),
+  tracks: many(trackTable),
 }));
+
+export const artistToTrackRelations = relations(
+  artistToTrackTable,
+  ({ one }) => ({
+    track: one(trackTable, {
+      fields: [artistToTrackTable.trackId],
+      references: [trackTable.id],
+    }),
+    artist: one(artistTable, {
+      fields: [artistToTrackTable.artistId],
+      references: [artistTable.id],
+    }),
+  }),
+);

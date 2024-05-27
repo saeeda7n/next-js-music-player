@@ -1,8 +1,15 @@
 "use server";
 import { db, queryClient } from "@/lib/drizzle";
 import { asc, desc, eq, gt, lt, or, sql } from "drizzle-orm";
-import { artistTable, mediaTable } from "@/lib/drizzle/schema";
+import {
+  artistTable,
+  artistToTrackTable,
+  mediaTable,
+  trackTable,
+} from "@/lib/drizzle/schema";
 import { Sleep } from "@/lib/utils";
+import { tracks } from "@/server/tracks";
+import { PgDialect } from "drizzle-orm/pg-core";
 
 export async function getArtists() {
   return db.query.artistTable.findMany({
@@ -27,6 +34,33 @@ export async function getArtist(slugOrId: string) {
     where,
     columns: { backgroundId: false },
     with: {
+      tracks: {
+        limit: 5,
+        columns: { coverId: false, playableId: false, artistId: false },
+        with: {
+          playable: {
+            columns: { placeholder: true },
+            extras: {
+              url: sql<string>`concat('https://cdn.saeedakhshijan.com/',${mediaTable.storeKey})`.as(
+                "url",
+              ),
+            },
+          },
+          cover: {
+            columns: { placeholder: true },
+            extras: {
+              url: sql<string>`concat('https://cdn.saeedakhshijan.com/',${mediaTable.storeKey})`.as(
+                "url",
+              ),
+            },
+          },
+        },
+        extras: {
+          url: sql<string>`concat('//localhost:3000/api/v1/tracks/',${trackTable.slug})`.as(
+            "fetch",
+          ),
+        },
+      },
       backgroundImage: {
         columns: {},
         extras: {

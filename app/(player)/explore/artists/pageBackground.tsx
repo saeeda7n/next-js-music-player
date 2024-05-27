@@ -2,6 +2,7 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import AppImage from "@/components/appImage";
+import { cn } from "@/lib/utils";
 
 type Props = {
   id: string | number;
@@ -10,7 +11,7 @@ type Props = {
 };
 const PageBackground = ({ src, alt, id }: Props) => {
   return (
-    <div className="sticky top-0 h-[calc(100vh-8rem)] w-full overflow-hidden">
+    <div className={cn("sticky top-0 h-lvh w-full overflow-hidden")}>
       <AnimatePresence mode="wait">
         <motion.div
           key={id}

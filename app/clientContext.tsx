@@ -11,9 +11,10 @@ const queryClient = new QueryClient({
 
 const ClientContext = ({ children }: PropsWithChildren) => {
   return (
-    <PlayerProvider>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </PlayerProvider>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <PlayerProvider />
+    </QueryClientProvider>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Anton, Inter, Source_Sans_3, Tajawal } from "next/font/google";
+import { Anton, Inter, Dosis } from "next/font/google";
 
 export const anton = Anton({
   subsets: ["latin"],
@@ -6,12 +6,7 @@ export const anton = Anton({
   variable: "--anton",
 });
 export const inter = Inter({ subsets: ["latin"] });
-export const tajawal = Tajawal({
+export const dosis = Dosis({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "700", "800", "900"],
-  variable: "--tajawal",
-});
-export const sourceSans3 = Source_Sans_3({
-  variable: "--sourceSans3",
-  subsets: ["latin"],
+  variable: "--dosis",
 });

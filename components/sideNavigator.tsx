@@ -21,12 +21,12 @@ type Props<T extends string> =
       label?: string;
     };
 
-const SideNavigator = (props: Props<string>) => {
+export const SideNavigator = (props: Props<string>) => {
   const { closed } = props;
   return (
-    <section
+    <aside
       className={cn(
-        "group sticky top-0 flex max-h-screen max-w-44 flex-1 overflow-hidden bg-black bg-cover bg-center [transition:max-width_0.3s]",
+        "group sticky top-0 flex max-h-screen max-w-40 flex-1 overflow-hidden bg-black bg-cover bg-center [transition:max-width_0.3s]",
         { "pointer-events-none max-w-12": closed },
       )}
     >
@@ -35,9 +35,9 @@ const SideNavigator = (props: Props<string>) => {
         {!closed && props.backgroundImage && props.label && (
           <motion.div
             key={props.id}
-            initial={{ opacity: 0.3, scale: 1 }}
+            initial={{ opacity: 0.0, scale: 1 }}
             animate={{ opacity: 1, scale: 1.05 }}
-            exit={{ opacity: 0.3, scale: 1 }}
+            exit={{ opacity: 0.0, scale: 1 }}
             className="cover-mask absolute inset-0"
           >
             <AppImage
@@ -68,8 +68,6 @@ const SideNavigator = (props: Props<string>) => {
           </AnimatePresence>
         </Link>
       )}
-    </section>
+    </aside>
   );
 };
-
-export default SideNavigator;

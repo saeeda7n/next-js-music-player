@@ -19,8 +19,7 @@ const config: Config = {
     },
     fontFamily: {
       anton: ["var(--anton)"],
-      tajawal: ["var(--tajawal)"],
-      "source-sans-3": ["var(--sourceSans3)"],
+      dosis: ["var(--dosis)"],
     },
     extend: {
       backgroundImage: {

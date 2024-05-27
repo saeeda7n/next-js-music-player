@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
 import "../styles/globals.css";
-import { anton, inter, sourceSans3, tajawal } from "@/lib/fonts";
+import { anton, dosis, inter } from "@/lib/fonts";
 import ClientContext from "@/app/clientContext";
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,8 +18,7 @@ export default function RootLayout({ children }: Props) {
         className={cn(
           inter.className,
           anton.variable,
-          tajawal.variable,
-          sourceSans3.variable,
+          dosis.variable,
           "min-h-screen",
           "flex",
           "bg-zinc-950",

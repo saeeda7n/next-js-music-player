@@ -1,23 +1,31 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "@/lib/gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { RiVerifiedBadgeFill } from "@remixicon/react";
+import { cn } from "@/lib/utils";
+import { usePlayer } from "@/components/player/player";
+
 type ArtistPageTitleProps = {
   name: string;
   fullName?: string | null;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
-export function PageHeader({ fullName, name }: ArtistPageTitleProps) {
+export function PageHeader({
+  fullName,
+  name,
+  className,
+  ...props
+}: ArtistPageTitleProps) {
   const ref = useRef<any>();
   useGSAP(() => {
     gsap
       .timeline({
         scrollTrigger: {
-          trigger: ref.current,
+          trigger: "body",
           start: "top top",
-          end: "250 top",
+          end: "200 top",
           scrub: 0.2,
         },
       })
@@ -30,7 +38,7 @@ export function PageHeader({ fullName, name }: ArtistPageTitleProps) {
           "--subtitleSize": 1,
         },
         {
-          paddingTop: "0.5rem",
+          paddingTop: "0.75rem",
           marginBottom: "4rem",
           "--titleSize": 2,
           "--subtitleSize": 0.75,
@@ -48,7 +56,11 @@ export function PageHeader({ fullName, name }: ArtistPageTitleProps) {
       );
   });
   return (
-    <div ref={ref} className="sticky top-0 space-y-1 px-16 pb-2 leading-[0]">
+    <div
+      ref={ref}
+      {...props}
+      className={cn("sticky top-0 space-y-1 px-16 pb-2 leading-[0]", className)}
+    >
       <div className="overflow-hidden leading-none">
         <AnimatePresence mode="wait">
           <motion.div
@@ -59,7 +71,7 @@ export function PageHeader({ fullName, name }: ArtistPageTitleProps) {
             transition={{ ease: "backInOut" }}
             className="flex items-center gap-1"
           >
-            <h1 className="font-anton text-[length:calc(var(--titleSize)*1rem)] font-medium uppercase leading-none tracking-wide">
+            <h1 className="font-anton text-[length:calc(var(--titleSize)*1rem)] font-medium uppercase leading-none">
               {name}
             </h1>
           </motion.div>
