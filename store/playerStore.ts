@@ -12,6 +12,10 @@ export type PlayableTrack = {
   } | null;
   id: number;
   name: string;
+  artist: {
+    name: string;
+    slug: string;
+  };
 };
 
 type PlaylistProps = {
@@ -32,6 +36,7 @@ export type PlayerStoreProps = {
   setPlayList: (playlist: PlaylistProps) => void;
   playNext: () => void;
   playPrevious: () => void;
+  clearTrack: () => void;
 };
 
 export const usePlayerStore = create<PlayerStoreProps>()(
@@ -78,6 +83,8 @@ export const usePlayerStore = create<PlayerStoreProps>()(
         isPlaying: false,
         setIsPlaying: (isPlaying) =>
           set((state) => ({ isPlaying: (state.isPlaying = isPlaying) })),
+        clearTrack: () =>
+          set((state) => ({ currentTrack: (state.currentTrack = null) })),
       }),
       {
         name: "player-storage",

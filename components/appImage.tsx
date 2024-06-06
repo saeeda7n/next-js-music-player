@@ -19,9 +19,13 @@ const AppImage = ({
         onError={_onError}
         onLoadingComplete={_onLoadingComplete}
         fill
-        className={cn(className, "opacity-0 transition-opacity duration-300", {
-          "opacity-100": loaded,
-        })}
+        className={cn(
+          "opacity-0 transition-opacity duration-300",
+          {
+            "opacity-100": loaded,
+          },
+          className,
+        )}
         {...props}
       />
       {!loaded && (

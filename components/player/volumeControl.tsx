@@ -3,6 +3,7 @@ import Slider from "rc-slider";
 import colors from "tailwindcss/colors";
 import { usePlayerOptions } from "@/store";
 import {
+  RiLoopRightFill,
   RiVolumeDownFill,
   RiVolumeMuteFill,
   RiVolumeUpFill,
@@ -21,17 +22,15 @@ const VolumeControl = () => {
   const volume = usePlayerOptions((state) => state.volume);
   const Icon =
     volume <= 0 ? (
-      <RiVolumeMuteFill className="size-5" />
-    ) : volume < 0.6 ? (
-      <RiVolumeDownFill className="size-5" />
+      <RiVolumeMuteFill className="size-5 text-gray-50 opacity-50 transition duration-300 group-hover:opacity-90 " />
+    ) : volume < 0.5 ? (
+      <RiVolumeDownFill className="size-5 text-gray-50 opacity-50 transition duration-300 group-hover:opacity-90 " />
     ) : (
-      <RiVolumeUpFill className="size-5" />
+      <RiVolumeUpFill className="size-5 text-gray-50 opacity-50 transition duration-300 group-hover:opacity-90 " />
     );
   return (
     <Popover className="flex items-center">
-      <PopoverButton className="text-sm/6 font-semibold text-white/50 focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1 data-[focus]:outline-white">
-        {Icon}
-      </PopoverButton>
+      <PopoverButton className="group">{Icon}</PopoverButton>
       <Transition
         enter="transition ease-out duration-200"
         enterFrom="opacity-0 translate-y-1"

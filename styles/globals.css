@@ -3,10 +3,23 @@
 @tailwind utilities;
 
 
-/*.cover-mask {*/
-/*    mask-image: radial-gradient(circle, rgba(255, 255, 255, 1) 5%, rgba(0, 0, 0, 0) 110%),*/
-/*    radial-gradient(circle, rgba(255, 255, 255, 1) 5%, rgba(0, 0, 0, 0) 110%);*/
-/*}*/
+body {
+    @apply flex flex-row;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    @apply bg-zinc-950
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    @apply bg-zinc-900
+}
 
 :root {
     color-scheme: dark;
@@ -32,4 +45,30 @@
 
 .player-progress-mask {
     mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 40%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 1) 100%);
+}
+
+.border-animation {
+    @apply before:bg-gray-50 before:absolute before:top-1/4 before:left-0 before:right-0 before:bottom-1/4 z-10 before:animate-[rotate_6s_linear_infinite] before:bg-gradient-to-r before:from-indigo-600 before:to-sky-500;
+}
+
+@keyframes rotate {
+    from {
+        rotate: 0;
+    }
+    to {
+        rotate: 360deg;
+    }
+}
+
+.slider-mask {
+    mask-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.9) 100%)
+}
+
+.player-border-mask {
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 55%, rgba(255, 255, 255, 1) 55%, rgba(0, 0, 0, 0) 100%);
+}
+
+.track-card-mask {
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%)
+
 }

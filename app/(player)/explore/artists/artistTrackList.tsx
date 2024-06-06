@@ -52,7 +52,7 @@ const ArtistTrackList = ({
 
   function setPlaylistAndTrack(track: PlayableTrack) {
     setTrack(track);
-    setPlaylist({ name: `${name} Top 5`, key: id, tracks });
+    setPlaylist({ name: `${name} Top 10`, key: id, tracks });
   }
 
   return (

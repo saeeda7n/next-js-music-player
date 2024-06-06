@@ -8,7 +8,7 @@ import { WavesurferConf } from "@/wavesurfer.conf";
 import { usePlayerOptions, usePlayerStore } from "@/store";
 import { usePlayer } from "@/components/player/player";
 
-const PlayerProgress = () => {
+const PlayerWaveSurfer = () => {
   const { setPlayer } = usePlayer();
   const container = useRef(null);
   const [firstLoad, setFirstLoad] = useState(0);
@@ -84,7 +84,7 @@ const PlayerProgress = () => {
   );
 };
 
-export default PlayerProgress;
+export default PlayerWaveSurfer;
 
 type LoaderContainerProps = {
   wavesurfer: WaveSurfer;
