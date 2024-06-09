@@ -51,9 +51,9 @@ function Header() {
 function NoiseBackground() {
  return (
   <div
-   className="pointer-events-none absolute inset-0 z-30 bg-repeat opacity-50"
+   className="pointer-events-none fixed inset-0 z-30 bg-repeat opacity-50"
    style={{
-    backgroundImage: `url('/assets/images/84325b84f3dab86eca9938a29fe403c6.png')`,
+    backgroundImage: `url('/assets/images/noise.webp')`,
    }}
   ></div>
  );

@@ -105,7 +105,7 @@ export function Circles() {
  return (
   <div
    ref={scope}
-   className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center overflow-hidden "
+   className="pointer-events-none fixed inset-0 z-20 flex items-center justify-center overflow-hidden "
   >
    <div className="container relative">
     <div className="absolute inset-0 flex items-center justify-center">
@@ -134,7 +134,7 @@ export function Backgrounds() {
   { scope },
  );
  return (
-  <div ref={scope} className="absolute inset-0 z-10 overflow-hidden">
+  <div ref={scope} className="fixed inset-0 z-10 overflow-hidden">
    <div className="relative z-50 h-full w-full bg-black/90 backdrop-blur-[120px]"></div>
    <div className="box-i absolute -bottom-1/2 end-1/3 z-30 size-[54rem] origin-[100%_50%] rounded-full bg-[#5ACDFF]"></div>
    <div className="box-ii absolute -bottom-1/3 z-20 size-[32rem] origin-[100%_0%] rounded-full bg-[#FC4D03]"></div>
