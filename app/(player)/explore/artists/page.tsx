@@ -10,8 +10,22 @@ import ArtistAlbumsSlider from "@/app/(player)/explore/artists/artistAlbumsSlide
 import { AnimatePresence, motion } from "framer-motion";
 import { RiVerifiedBadgeFill } from "@remixicon/react";
 import ArtistPageHeader from "@/app/(player)/explore/artists/artistPageHeader";
+import { Metadata } from "next";
 
-const Page = async ({ searchParams: { id } }: any) => {
+type Props = {
+ searchParams: { id: string };
+};
+
+export async function generateMetadata({
+ searchParams: { id },
+}: Props): Promise<Metadata | undefined> {
+ const artist = await getArtist(id);
+ if (artist) {
+  return { title: `${artist.name} | Site name` };
+ }
+}
+
+const Page = async ({ searchParams: { id } }: Props) => {
  const artist = await getArtist(id);
  if (!artist) return notFound();
 

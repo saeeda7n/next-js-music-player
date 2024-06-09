@@ -1,14 +1,15 @@
+"use client";
+import React from "react";
+import Link from "next/link";
+import { RiPlayFill, RiPlayList2Fill } from "@remixicon/react";
 import {
  Popover,
  PopoverButton,
  PopoverPanel,
  Transition,
 } from "@headlessui/react";
-import { RiPlayFill, RiPlayList2Fill } from "@remixicon/react";
-import React, { useEffect, useRef } from "react";
 import { PlayableTrack, usePlayerStore } from "@/store";
 import AppImage from "@/components/appImage";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export function Playlist() {
@@ -18,7 +19,7 @@ export function Playlist() {
 
  return (
   <Popover className="flex items-center">
-   <PopoverButton className="group">
+   <PopoverButton className="group outline-none">
     <RiPlayList2Fill className="size-5 text-gray-50 opacity-50 transition duration-300 group-hover:opacity-90" />
    </PopoverButton>
    <Transition
@@ -51,15 +52,17 @@ export function Playlist() {
  );
 }
 
+type PlaylistTrackCardProps = {
+ track: PlayableTrack;
+ isActive: boolean;
+ onPressPlay: (track: PlayableTrack) => void;
+};
+
 function PlaylistTrackCard({
  track,
  isActive,
  onPressPlay,
-}: {
- track: PlayableTrack;
- isActive: boolean;
- onPressPlay: (track: PlayableTrack) => void;
-}) {
+}: PlaylistTrackCardProps) {
  return (
   <div
    className={cn("group relative overflow-hidden p-[2px]", {
@@ -75,7 +78,12 @@ function PlaylistTrackCard({
      />
     </div>
     <div className="flex flex-col justify-center gap-1.5 overflow-hidden">
-     <h6 className="truncate text-sm/3 font-medium">{track.name}</h6>
+     <Link
+      href={`/explore/tracks/${track.slug}`}
+      className="truncate text-sm/3 font-medium"
+     >
+      {track.name}
+     </Link>
      <Link
       className="line-clamp-2 text-xs font-light leading-none"
       href={`/explore/artists?id=${track.artist?.slug}`}

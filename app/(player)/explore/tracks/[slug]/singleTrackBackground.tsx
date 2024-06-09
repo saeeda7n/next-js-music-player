@@ -9,7 +9,6 @@ export function SingleTrackBackground({ src }: { src: string }) {
   () => {
    gsap.to(scope.current, {
     opacity: 0.5,
-    delay: 4,
     scale: 3,
     duration: 8,
    });

@@ -1,10 +1,10 @@
 import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
 import { getRandomTracks, getTrack } from "@/server/actions/tracks";
 import { SideNavigator } from "@/components/sideNavigator";
-import { AppHeader } from "@/components/appHeader";
 import AppImage from "@/components/appImage";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import SetDimensions from "@/components/setDimensions";
 import { formatSecondToMinutes } from "@/lib/utils";
 import { SingleTrackActions } from "@/app/(player)/explore/tracks/[slug]/singleTrackActions";
@@ -14,6 +14,16 @@ import Footer from "@/app/(player)/footer";
 type Props = {
  params: { slug: string };
 };
+
+export async function generateMetadata({
+ params: { slug },
+}: Props): Promise<Metadata | undefined> {
+ const track = await getTrack(slug);
+ if (track)
+  return {
+   title: `${track.title} | Player name`,
+  };
+}
 
 const Page = async ({ params: { slug } }: Props) => {
  const tracks = await getRandomTracks();

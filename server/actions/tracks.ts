@@ -1,7 +1,8 @@
 "use server";
 import { db } from "@/lib/drizzle";
 import { sql } from "drizzle-orm";
-import { mediaTable, trackTable } from "@/lib/drizzle/schema";
+import { albumTable, mediaTable } from "@/lib/drizzle/schema";
+import { cache } from "react";
 
 export async function getRandomTracks() {
  return db.query.trackTable.findMany({
@@ -29,7 +30,8 @@ export async function getRandomTracks() {
   },
  });
 }
-export async function getTrack(slug: string) {
+
+export const getTrack = cache(async function (slug: string) {
  return db.query.trackTable.findFirst({
   where: (table, { eq }) => eq(table.slug, slug),
   with: {
@@ -54,4 +56,4 @@ export async function getTrack(slug: string) {
    },
   },
  });
-}
+});

@@ -10,6 +10,7 @@ import {
 import { Sleep } from "@/lib/utils";
 import { tracks } from "@/server/tracks";
 import { PgDialect } from "drizzle-orm/pg-core";
+import { cache } from "react";
 
 export async function getArtists() {
  return db.query.artistTable.findMany({
@@ -26,7 +27,7 @@ export async function getArtists() {
  });
 }
 
-export async function getArtist(slugOrId: string) {
+export const getArtist = cache(async function (slugOrId: string) {
  const where = Number.isNaN(+slugOrId)
   ? eq(artistTable.slug, slugOrId)
   : eq(artistTable.id, +slugOrId);
@@ -80,7 +81,7 @@ export async function getArtist(slugOrId: string) {
   getPreviousArtist(artist.id),
  ]);
  return { ...artist, next, previous };
-}
+});
 
 export async function getNextArtist(id: number) {
  return (

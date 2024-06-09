@@ -2,6 +2,7 @@
 import React from "react";
 import { usePlayerStore } from "@/store";
 import { cn } from "@/lib/utils";
+
 const tools = [
  "Text to speech",
  "Extract track text",
@@ -24,7 +25,7 @@ const api = ["API Access", "Source code", "Pricing", "Open Api"];
 
 const footer = ["Privacy policy", "Terms of use", "Site map"];
 
-const Footer = () => {
+const Footer = ({ className }: { className?: string }) => {
  const isPlayerOpen = !!usePlayerStore((state) => state.currentTrack);
  return (
   <footer
@@ -33,6 +34,7 @@ const Footer = () => {
     {
      "pb-36": isPlayerOpen,
     },
+    className,
    )}
   >
    <div className="grid grid-cols-5">
