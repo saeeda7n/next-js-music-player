@@ -24,6 +24,8 @@ const Stars = () => {
       stop2: "#ffffff33",
      },
     ]);
+    const duration = gsap.utils.random(0.5, 2);
+    const delay = gsap.utils.random(0.5, 2);
     gsap
      .timeline({
       onComplete() {
@@ -33,6 +35,8 @@ const Stars = () => {
      .to(
       ".stop-1",
       {
+       delay,
+       duration,
        stopColor: nextState.stop1,
       },
       0,
@@ -40,6 +44,8 @@ const Stars = () => {
      .to(
       ".stop-2",
       {
+       delay,
+       duration,
        stopColor: nextState.stop2,
       },
       0,
