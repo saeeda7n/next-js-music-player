@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect, useId, useRef } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "@/lib/gsap";
 
-const Stars = () => {
+const Star = () => {
  const id = useId();
  const scope = useRef(null);
  useGSAP(
@@ -88,8 +88,8 @@ const Stars = () => {
 export const StarsBox = () => {
  return (
   <div className="mb-12 grid w-64 grid-cols-8 gap-y-4">
-   {[...new Array(16)].map(() => (
-    <Stars />
+   {[...new Array(16)].map((_, index) => (
+    <Star key={index} />
    ))}
   </div>
  );
@@ -121,6 +121,60 @@ export function Circles() {
       <div className="box-iii absolute size-[36rem] origin-[60%_30%] rounded-full bg-[#2A23CF] blur-3xl" />
      </div>
     </div>
+   </div>
+  </div>
+ );
+}
+
+export function Details() {
+ const [params, setParams] = useState({
+  songs: 100,
+  artists: 20,
+  brands: 6,
+ });
+
+ useGSAP(() => {
+  gsap.fromTo(
+   params,
+   {
+    ease: "power1.out",
+    songs: 0,
+    artists: 0,
+    brands: 0,
+   },
+   {
+    songs: 100,
+    artists: 20,
+    brands: 6,
+    duration: 10,
+    ease: "power1.out",
+    onUpdate: () => {
+     setParams({ ...params });
+    },
+   },
+  );
+ });
+ return (
+  <div className="flex min-w-44 flex-col justify-center gap-20 max-sm:flex-row max-sm:flex-wrap">
+   <div className="flex flex-col">
+    <span className="text-5xl font-bold">{~~params.songs}K+</span>
+    <span className="align-text-bottom text-2xl font-bold text-zinc-500">
+     Songs
+    </span>
+   </div>
+
+   <div className="flex flex-col">
+    <span className="text-5xl font-bold">{~~params.artists}K+</span>
+    <span className="align-text-bottom text-2xl font-bold text-zinc-500">
+     Artists
+    </span>
+   </div>
+
+   <div className="flex flex-col">
+    <span className="text-5xl font-bold">{~~params.brands}K+</span>
+    <span className="align-text-bottom text-2xl font-bold text-zinc-500">
+     Brands
+    </span>
    </div>
   </div>
  );
