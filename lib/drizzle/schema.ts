@@ -10,36 +10,6 @@ import {
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { randomBytes } from "crypto";
-// export const userRole = pgEnum("user_role", ["admin", "basic"]);
-// export const userTable = pgTable("users", {
-//   id: uuid("id").primaryKey().defaultRandom(),
-//   name: varchar("name"),
-//   email: varchar("email").notNull().unique(),
-//   password: varchar("password", { length: 128 }).notNull(),
-//   createdAt: timestamp("created_at", {
-//     mode: "date",
-//     withTimezone: true,
-//   }).defaultNow(),
-//   updatedAt: timestamp("updated_at", {
-//     mode: "date",
-//     withTimezone: true,
-//   }).defaultNow(),
-//   verifiedAt: timestamp("verified_at", { mode: "date", withTimezone: true }),
-// });
-
-// export const sessionTable = pgTable("session", {
-//   id: text("id").primaryKey(),
-//   userId: varchar("user_id", { length: 36 })
-//     .notNull()
-//     .references(() => userTable.id),
-//   expiresAt: timestamp("expires_at", {
-//     withTimezone: true,
-//     mode: "date",
-//   }).notNull(),
-//   ip: varchar("ip", { length: 15 }),
-//   userAgent: varchar("user_agent"),
-// });
-//
 
 export const trackTable = pgTable("tracks", {
  id: serial("id").primaryKey(),
